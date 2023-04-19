@@ -75,7 +75,7 @@ public class Tetris extends Application{
             
         });
         VBox volume = new VBox(volumeButton);                           // vertical box formats the volume button
-        volume.setPadding(new Insets(50));                              // adds padding of 50 pixels within the button
+        volume.setPadding(new Insets(100));                              // adds padding of 100 pixels within the button
         
         VBox left = new VBox(volume);                                   // vertical box that holds everything to the left
         left.setAlignment(Pos.BOTTOM_LEFT);                             // format it to the  bottom left
@@ -87,7 +87,7 @@ public class Tetris extends Application{
             new TetrisControls(stage);
         });
         VBox tabs = new VBox(settings);                                 // creates vertcal boc that holds settings
-        tabs.setPadding(new Insets(50));                                // adds padding of 50 pixels within the tabs vbox
+        tabs.setPadding(new Insets(100));                               // adds padding of 100 pixels within the tabs vbox
         
         VBox right = new VBox(tabs);                                    // creates a vertical box for the right tabs
         right.setAlignment(Pos.BOTTOM_RIGHT);                           // formats it to bottom right
