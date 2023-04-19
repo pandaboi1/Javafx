@@ -68,26 +68,26 @@ public class Tetris extends Application{
         center.setAlignment(Pos.CENTER);
 
 
-        Button volumeButton = new Button("Volume");                     // Creates volume button 
+        Button volumeButton = new Button("V");                          // Creates volume button 
         volumeButton.setStyle("-fx-background-color: grey; -fx-text-fill: white; -fx-font-size: 20px;"); //setStyle changes ("background; text-color; size;")
         volumeButton.setOnAction(e ->{                                  // when volume button is pressed it has an action
             // Volome on/off code
             
         });
         VBox volume = new VBox(volumeButton);                           // vertical box formats the volume button
-        volume.setPadding(new Insets(100));                              // adds padding of 100 pixels within the button
+        volume.setPadding(new Insets(75));                              // adds padding of 75 pixels within the button
         
         VBox left = new VBox(volume);                                   // vertical box that holds everything to the left
         left.setAlignment(Pos.BOTTOM_LEFT);                             // format it to the  bottom left
 
 
-        Button settings = new Button("Controls");                       // creates settings button with a Controls label
+        Button settings = new Button("C");                              // creates settings button
         settings.setStyle("-fx-background-color: grey; -fx-text-fill: white; -fx-font-size: 20px;"); //setStyle changes ("background; text-color; size;")
         settings.setOnAction(e ->{                                      // when settings is pressed it opens Controls page
             new TetrisControls(stage);
         });
         VBox tabs = new VBox(settings);                                 // creates vertcal boc that holds settings
-        tabs.setPadding(new Insets(100));                               // adds padding of 100 pixels within the tabs vbox
+        tabs.setPadding(new Insets(75));                                // adds padding of 75 pixels within the tabs vbox
         
         VBox right = new VBox(tabs);                                    // creates a vertical box for the right tabs
         right.setAlignment(Pos.BOTTOM_RIGHT);                           // formats it to bottom right
