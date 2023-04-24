@@ -36,10 +36,14 @@ public class TetrisGame {
         line4.setAlignment(Pos.CENTER_RIGHT);
         line4.setPadding(new Insets(20));
 
+         
+
 
         VBox left = new VBox();
         left.setPadding(new Insets(20)); 
         left.setStyle("-fx-font: 24 arial;");
+
+
         VBox right = new VBox(line1, line2, line3, line4);
         right.setAlignment(Pos.TOP_RIGHT);
         right.setPadding(new Insets(20)); 

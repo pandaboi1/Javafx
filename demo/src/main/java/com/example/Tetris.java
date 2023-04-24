@@ -53,6 +53,7 @@ public class Tetris extends Application{
         HBox tetris = new HBox(T, E, T2, R, I, S);                      // horizontal box that groups the title letters
         tetris.setAlignment(Pos.TOP_CENTER);                            // Centers the title to the top center
         
+        
         Button start = new Button("Start");                             // Creates Start button, labeled start
         start.setStyle("-fx-background-color: #ffb2a8; -fx-text-fill: white; -fx-font-size: 24px;"); //setStyle changes ("background; text-color; size;")
         start.setOnAction(e ->{                                         // Start button opens Difficulty window
@@ -63,34 +64,36 @@ public class Tetris extends Application{
         buttonContainer.setAlignment(Pos.CENTER);                       // positions buttons to center
         buttonContainer.setPadding(new Insets(20));                     // adds padding of 20 pixels within the button
         buttonContainer.setSpacing(40);                                 // adds spacing  of 40 pixels around the button, 
-
+        
+        // Center (title and start)
         VBox center = new VBox(tetris, buttonContainer);                // vertical box formats Tertis label and Start button
         center.setAlignment(Pos.CENTER);
 
 
-        Button volumeButton = new Button("V");                          // Creates volume button 
-        volumeButton.setStyle("-fx-background-color: grey; -fx-text-fill: white; -fx-font-size: 20px;"); //setStyle changes ("background; text-color; size;")
+        Button volumeButton = new Button("Volume");                          // Creates volume button 
+        volumeButton.setStyle("-fx-background-color: grey; -fx-text-fill: white; -fx-font-size: 20px; -fx-padding:10px;"); //setStyle changes ("background; text-color; size;")
         volumeButton.setOnAction(e ->{                                  // when volume button is pressed it has an action
             // Volome on/off code
             
         });
         VBox volume = new VBox(volumeButton);                           // vertical box formats the volume button
-        volume.setPadding(new Insets(75));                              // adds padding of 75 pixels within the button
         
+        // Left (volumebutton)
         VBox left = new VBox(volume);                                   // vertical box that holds everything to the left
         left.setAlignment(Pos.BOTTOM_LEFT);                             // format it to the  bottom left
 
 
-        Button settings = new Button("C");                              // creates settings button
-        settings.setStyle("-fx-background-color: grey; -fx-text-fill: white; -fx-font-size: 20px;"); //setStyle changes ("background; text-color; size;")
+        Button settings = new Button("Controls");                              // creates settings button
+        settings.setStyle("-fx-background-color: grey; -fx-text-fill: white; -fx-font-size: 20px; -fx-padding:10px;"); //setStyle changes ("background; text-color; size;")
         settings.setOnAction(e ->{                                      // when settings is pressed it opens Controls page
             new TetrisControls(stage);
         });
         VBox tabs = new VBox(settings);                                 // creates vertcal boc that holds settings
-        tabs.setPadding(new Insets(75));                                // adds padding of 75 pixels within the tabs vbox
         
+        // Right (settings)
         VBox right = new VBox(tabs);                                    // creates a vertical box for the right tabs
         right.setAlignment(Pos.BOTTOM_RIGHT);                           // formats it to bottom right
+        
         
         HBox main = new HBox(left, center, right);                      // creates horizontal box from left to right
         main.setAlignment(Pos.CENTER);                                  // formats main to the center
