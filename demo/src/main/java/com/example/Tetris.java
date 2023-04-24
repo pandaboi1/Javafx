@@ -5,6 +5,10 @@ package com.example;
 // Tetris
 /////////////////////////
 
+// https://youtu.be/boAJUSN8fOU
+// https://youtu.be/KGaixc-ExXA
+// https://github.com/Gaspared/tetris
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
