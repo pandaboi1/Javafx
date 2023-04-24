@@ -2,6 +2,7 @@ package com.example;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -12,7 +13,13 @@ public class TetrisControls {
         newStage.initOwner(oldStage);
         newStage.setTitle("Tetris - Controls"); 
 
-
+        // Back Button
+        Button back = new Button("Menu");
+        back.setStyle("-fx-background-color: grey; -fx-text-fill: white; -fx-padding:5px; -fx-font-size: 25px;");
+        back.setOnAction(e ->{
+            newStage.hide();
+        });
+        
         // Keys Labels
         Label leftArrow1 = new Label("Move Left:");
         Label blank1 = new Label (" ");
@@ -27,10 +34,7 @@ public class TetrisControls {
         blank3.setStyle("-fx-font-size: 1px;");
 
         Label downArrow1 = new Label("Move Downward: ");
-        Label blank4 = new Label (" ");
-        blank4.setStyle("-fx-font-size: 1px;");
 
-        Label shift1 = new Label ("Hold: ");
         
 
         // Symbols Labels
@@ -46,27 +50,31 @@ public class TetrisControls {
         Label downArrow2 = new Label("↓");
         downArrow2.setStyle("-fx-background-color: #5050ff; -fx-text-fill: white; -fx-padding:5px;");
         
-        Label shift2 = new Label("Shift");
-        shift2.setStyle("-fx-background-color: #5050ff; -fx-text-fill: white; -fx-padding:5px;");
-
+        // Back Verticla Box
+        VBox backButton = new VBox(back);
+        backButton.setAlignment(Pos.TOP_LEFT);
+        backButton.setPadding(new Insets(35));
 
         // Keys vertical box
-        VBox keys = new VBox(leftArrow1, blank1, rightArrow1, blank2, upArrow1, blank3, downArrow1, blank4, shift1);
+        VBox keys = new VBox(leftArrow1, blank1, rightArrow1, blank2, upArrow1, blank3, downArrow1 );
         keys.setStyle("-fx-font: 100 Didot; -fx-font-size: 30px;");
         keys.setPadding(new Insets(20));
         keys.setSpacing(15);
         keys.setAlignment(Pos.CENTER_LEFT);
 
         // Symbols vertical box
-        VBox symbols = new VBox(leftArrow2, blank1, rightArrow2, blank2, upArrow2, blank3, downArrow2, blank4, shift2);
+        VBox symbols = new VBox(leftArrow2, blank1, rightArrow2, blank2, upArrow2, blank3, downArrow2);
         symbols.setStyle("-fx-font: 100 Didot; -fx-font-size: 30px;");
         symbols.setPadding(new Insets(5));
         symbols.setAlignment(Pos.CENTER);
 
+        // Controls horizontal box
+        HBox controls = new HBox(keys, symbols);
+        controls.setAlignment(Pos.CENTER);
 
-        HBox mainContainer = new HBox(keys, symbols);
+        // Main scene
+        HBox mainContainer = new HBox(backButton, controls);
         mainContainer.setStyle("-fx-background-color: #dbe9ff;");
-        mainContainer.setAlignment(Pos.CENTER);
 
         Scene currentScene = new Scene(mainContainer, 600, 800);                                 
         newStage.setScene(currentScene);

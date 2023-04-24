@@ -6,26 +6,27 @@ package com.example;
 /////////////////////////
 
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;         //adds Padding
-import javafx.scene.Scene;          //adds Scene
-import javafx.scene.control.*;      //adds Button [ALL]
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;    //adds HBOX
 import javafx.scene.layout.VBox;    //adds VBox
-import javafx.stage.Stage;          //adds Stage (creats window)
-
 import java.io.IOException;
 
 public class Tetris extends Application{
-    
-    private static Scene scene;
+    public static final int MOVE = 0;
     private static Label T;
     private static Label E;
     private static Label T2;
     private static Label R;
     private static Label I;
     private static Label S;
-    
+
+
+
     @Override
 
     // START METHOD v
@@ -56,8 +57,11 @@ public class Tetris extends Application{
         
         Button start = new Button("Start");                             // Creates Start button, labeled start
         start.setStyle("-fx-background-color: #ffb2a8; -fx-text-fill: white; -fx-font-size: 24px;"); //setStyle changes ("background; text-color; size;")
-        start.setOnAction(e ->{                                         // Start button opens Difficulty window
+        start.setOnAction(e ->{    
+            
+            stage.hide();                                               // Start button opens Difficulty window
             new TetrisDiff(stage);
+            
         });
 
         HBox buttonContainer = new HBox(start);                         // holds buttons properties
@@ -69,15 +73,14 @@ public class Tetris extends Application{
         VBox center = new VBox(tetris, buttonContainer);                // vertical box formats Tertis label and Start button
         center.setAlignment(Pos.CENTER);
 
-
-        Button volumeButton = new Button("Volume");                          // Creates volume button 
-        volumeButton.setStyle("-fx-background-color: grey; -fx-text-fill: white; -fx-font-size: 20px; -fx-padding:10px;"); //setStyle changes ("background; text-color; size;")
+        // IDEA MIGHT GET SCRAPED
+        Button volumeButton = new Button("               ");                          // Creates volume button 
+        volumeButton.setStyle("-fx-background-color: #dbe9ff; -fx-text-fill: white; -fx-font-size: 20px; -fx-padding:10px;"); //setStyle changes ("background; text-color; size;")
         volumeButton.setOnAction(e ->{                                  // when volume button is pressed it has an action
             // Volome on/off code
             
         });
         VBox volume = new VBox(volumeButton);                           // vertical box formats the volume button
-        
         // Left (volumebutton)
         VBox left = new VBox(volume);                                   // vertical box that holds everything to the left
         left.setAlignment(Pos.BOTTOM_LEFT);                             // format it to the  bottom left
@@ -99,7 +102,7 @@ public class Tetris extends Application{
         main.setAlignment(Pos.CENTER);                                  // formats main to the center
         main.setStyle("-fx-background-color: #dbe9ff;");                // changes the background color
 
-        scene = new Scene(main, 600, 800);                              //dimentions (vBox, x, y)
+        Scene scene = new Scene(main, 600, 800);                              //dimentions (vBox, x, y)
         
         stage.setScene(scene);                                          //sets stage to scene parameters
         stage.show();                                                   //opens window

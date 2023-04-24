@@ -24,14 +24,17 @@ public class TetrisDiff {
         hard.setStyle("-fx-background-color: #ff6961; -fx-text-fill: white; -fx-font-size: 24px;"); 
 
         easy.setOnAction(e ->{
-            
-            new TetrisGame(newStage);
+            new TetrisGame(oldStage);
+
+
         });
         med.setOnAction(e ->{
             new TetrisGame(newStage);
+
         });
         hard.setOnAction(e ->{
             new TetrisGame(newStage);
+
         });
         VBox difficultyBox = new VBox(difficulty);
         difficultyBox.setPadding(new Insets(15));
