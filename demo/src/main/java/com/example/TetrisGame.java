@@ -20,69 +20,73 @@ import javafx.stage.Stage;
 
 public class TetrisGame extends Tetris{
         // The variables
-        public static final int MOVE = 25;
-        public static final int SIZE = 25;
-        public static int XMAX = 490;
-        public static int YMAX = 800;
-        public static int[][] MESH = new int[XMAX / SIZE][YMAX / SIZE];         // Grid mesh
-        protected static Pane group = new Pane();
-        public static HBox groupProperties = new HBox(group);
-        protected static Form object;        
-        public static Scene scene = new Scene(groupProperties, 600, 800);
-	    public static int score = 0;
-        static int top = 0;
-        static boolean game = true;
-        protected static Form nextObj = Controller.makeRect();
-        static int linesNo = 0;
+        public static final int MOVE = 25;										// Movement
+        public static final int SIZE = 25;										// Size of obj
+        public static int XMAX = 490;											// Max horizontal
+        public static int YMAX = 800;											// Max vertical
+        public static int[][] MESH = new int[XMAX / SIZE][YMAX / SIZE];   		// Grid mesh
+
+		protected static Pane group = new Pane();						  		// Groups everything
+        public static HBox groupProperties = new HBox(group);					// Formats horizontally	
+        public static Scene scene = new Scene(groupProperties, 600, 800);		// Window properties
+
+        protected static Form object;        									// Creats a object with the Forms class
+        protected static Form nextObj = Controller.makeRect();					// Creates the next object to be placed
+
+	    public static int score = 0;											// Score tracker
+        static int top = 0;														// Top of the screan value
+        static boolean game = true;												// Game is being played if true, if false game is Lost
+        static int linesNo = 0;													// Number of Lines completed
     
     public TetrisGame(Stage stage) {
 
-        groupProperties.setStyle("-fx-background-color: #dbe9ff;");
-        groupProperties.setAlignment(Pos.CENTER);
-        Scene newScene = scene;
+        groupProperties.setStyle("-fx-background-color: #dbe9ff;"); 			// Pastel blue
+        groupProperties.setAlignment(Pos.CENTER);								// Centers everything
+        Scene newScene = scene;													// Creats a new scene with the window properties set
         
-		stage.setTitle("Tetris - Game");
-        stage.setScene(newScene);
-		stage.show();
+		stage.setTitle("Tetris - Game");										// Window title
+        stage.setScene(newScene);												// Creates window
+		stage.show();															// Displays window
 
 
-        for (int[] a : MESH) {
+        for (int[] a : MESH) {													// Creates an empty grid
 			Arrays.fill(a, 0);
 		}
 
-		Line line = new Line(XMAX, 0, XMAX, YMAX);
-		Text scoretext = new Text("Score: ");
-		scoretext.setStyle("-fx-font: 20 arial;");
-		scoretext.setY(50);
-		scoretext.setX(XMAX + 5);
-		Text level = new Text("Lines: ");
-		level.setStyle("-fx-font: 20 arial;");
-		level.setY(100);
-		level.setX(XMAX + 5);
-		level.setFill(Color.GREEN);
-        
-		group.getChildren().addAll(scoretext, line, level);
+		Line line = new Line(XMAX, 0, XMAX, YMAX);								// Vertical line
+		Text scoretext = new Text("Score: ");									// Score text
+		scoretext.setStyle("-fx-font: 20 arial;");								// Font
+		scoretext.setY(50);														// Position vertically
+		scoretext.setX(XMAX + 5);												// Position horizontally
 
-		Form a = nextObj;
-		group.getChildren().addAll(a.a, a.b, a.c, a.d);
-		moveOnKeyPress(a);
-		object = a;
-		nextObj = Controller.makeRect();
+		Text level = new Text("Lines: ");										// Lines text
+		level.setStyle("-fx-font: 20 arial;");									// Font
+		level.setY(100);														// Position vertically
+		level.setX(XMAX + 5);													// Position horizontally
+		level.setFill(Color.GREEN);												// Text color
+        
+		group.getChildren().addAll(scoretext, line, level);						// Put everthing in container
+
+		Form a = nextObj;														// Creates next object
+		group.getChildren().addAll(a.a, a.b, a.c, a.d);							// Get all properties for that object from Form class
+		moveOnKeyPress(a);														// Movement properties assigned
+		object = a;																// Reassign next to current
+		nextObj = Controller.makeRect();										// Movment rules from controller
         
         
-		Timer fall = new Timer();
-		TimerTask task = new TimerTask() {
-			public void run() {
-				Platform.runLater(new Runnable() {
-					public void run() {
-						if (object.a.getY() == 0 || object.b.getY() == 0 || object.c.getY() == 0
-								|| object.d.getY() == 0)
+		Timer fall = new Timer();												// Falling properties
+		TimerTask task = new TimerTask() {										// Create properties
+			public void run() {													// Start after created
+				Platform.runLater(new Runnable() {								// Runtime
+					public void run() {											// Properties of it running
+						if (object.a.getY() == 0 || object.b.getY() == 0 
+						 || object.c.getY() == 0 || object.d.getY() == 0)	
 							top++;
 						else
 							top = 0;
 
-						if (top == 2) {
-							// GAME OVER
+						if (top == 2) {											// GAME OVER
+							
 							Text over = new Text("GAME OVER");
 							over.setFill(Color.RED);
 							over.setStyle("-fx-font: 70 arial;");
@@ -91,12 +95,12 @@ public class TetrisGame extends Tetris{
 							group.getChildren().add(over);
 							game = false;
 						}
-						// Exit
-						if (top == 15) {
-							//System.exit(0);
+							
+						if (top == 15) {										// Exit							
+							System.exit(0);
 						}
 
-						if (game) {
+						if (game) {												// If game is running move down
 							MoveDown(object);
 							scoretext.setText("Score: " + Integer.toString(score));
 							level.setText("Lines: " + Integer.toString(linesNo));
@@ -105,14 +109,14 @@ public class TetrisGame extends Tetris{
 				});
 			}
 		};
-		fall.schedule(task, 0, 300); 
+		fall.schedule(task, 0, 300); 								// Falling speed
         
         
        
 	}
     
-    private void moveOnKeyPress(Form form) {
-		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+    private void moveOnKeyPress(Form form) {									// Movement Prperties
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {					// Keys call move functions
 			@Override
 			public void handle(KeyEvent event) {
 				switch (event.getCode()) {
@@ -136,14 +140,15 @@ public class TetrisGame extends Tetris{
 		});
 	}
 
-	private void MoveTurn(Form form) {
+	private void MoveTurn(Form form) {											// Rotating movement Rules
 		int f = form.form;
 		Rectangle a = form.a;
 		Rectangle b = form.b;
 		Rectangle c = form.c;
 		Rectangle d = form.d;
-		switch (form.getName()) {
-		case "j":
+		switch (form.getName()) {												
+	// ******************************************************************************************
+		case "j":																// Rules for J
 			if (f == 1 && cB(a, 1, -1) && cB(c, -1, -1) && cB(d, -2, -2)) {
 				MoveRight(form.a);
 				MoveDown(form.a);
@@ -193,7 +198,8 @@ public class TetrisGame extends Tetris{
 				break;
 			}
 			break;
-		case "l":
+	// ******************************************************************************************
+		case "l":																// Rules for L
 			if (f == 1 && cB(a, 1, -1) && cB(c, 1, 1) && cB(b, 2, 2)) {
 				MoveRight(form.a);
 				MoveDown(form.a);
@@ -243,9 +249,11 @@ public class TetrisGame extends Tetris{
 				break;
 			}
 			break;
-		case "o":
+	// ******************************************************************************************
+		case "o":																// Rules for O
 			break;
-		case "s":
+	// ******************************************************************************************
+		case "s":																// Rules for S
 			if (f == 1 && cB(a, -1, -1) && cB(c, -1, 1) && cB(d, 0, 2)) {
 				MoveDown(form.a);
 				MoveLeft(form.a);
@@ -287,7 +295,8 @@ public class TetrisGame extends Tetris{
 				break;
 			}
 			break;
-		case "t":
+	// ******************************************************************************************
+		case "t":																// Rules for T
 			if (f == 1 && cB(a, 1, 1) && cB(d, -1, -1) && cB(c, -1, 1)) {
 				MoveUp(form.a);
 				MoveRight(form.a);
@@ -329,7 +338,8 @@ public class TetrisGame extends Tetris{
 				break;
 			}
 			break;
-		case "z":
+	// ******************************************************************************************
+		case "z":																// Rules for Z
 			if (f == 1 && cB(b, 1, 1) && cB(c, -1, 1) && cB(d, -2, 0)) {
 				MoveUp(form.b);
 				MoveRight(form.b);
@@ -371,7 +381,8 @@ public class TetrisGame extends Tetris{
 				break;
 			}
 			break;
-		case "i":
+	// ******************************************************************************************
+		case "i":																// Rules for I
 			if (f == 1 && cB(a, 2, 2) && cB(b, 1, 1) && cB(d, -1, -1)) {
 				MoveUp(form.a);
 				MoveUp(form.a);
@@ -424,11 +435,12 @@ public class TetrisGame extends Tetris{
 		}
 	}
 
-	private void RemoveRows(Pane pane) {
+	private void RemoveRows(Pane pane) {										// When row is completed delete and move everthing on top down
 		ArrayList<Node> rects = new ArrayList<Node>();
 		ArrayList<Integer> lines = new ArrayList<Integer>();
 		ArrayList<Node> newrects = new ArrayList<Node>();
 		int full = 0;
+
 		for (int i = 0; i < MESH[0].length; i++) {
 			for (int j = 0; j < MESH.length; j++) {
 				if (MESH[j][i] == 1)
@@ -436,10 +448,10 @@ public class TetrisGame extends Tetris{
 			}
 			if (full == MESH.length)
 			lines.add(i);
-			//lines.add(i + lines.size());
 			full = 0;
 		}
-		if (lines.size() > 0)
+
+		if (lines.size() > 0)													// De
 			do {
 				for (Node node : pane.getChildren()) {
 					if (node instanceof Rectangle)
@@ -482,30 +494,31 @@ public class TetrisGame extends Tetris{
 			} while (lines.size() > 0);
 	}
 
-	private void MoveDown(Rectangle rect) {
+	private void MoveDown(Rectangle rect) {										// Down movement of object
 		if (rect.getY() + MOVE < YMAX)
 			rect.setY(rect.getY() + MOVE);
 
 	}
 
-	private void MoveRight(Rectangle rect) {
+	private void MoveRight(Rectangle rect) {									// Right movement of object
 		if (rect.getX() + MOVE <= XMAX - SIZE)
 			rect.setX(rect.getX() + MOVE);
 	}
 
-	private void MoveLeft(Rectangle rect) {
+	private void MoveLeft(Rectangle rect) {										// Left movement of object
 		if (rect.getX() - MOVE >= 0)
 			rect.setX(rect.getX() - MOVE);
 	}
 
-	private void MoveUp(Rectangle rect) {
+	private void MoveUp(Rectangle rect) {										// Up movement of object
 		if (rect.getY() - MOVE > 0)
 			rect.setY(rect.getY() - MOVE);
 	}
 
-	private void MoveDown(Form form) {
-		if (form.a.getY() == YMAX - SIZE || form.b.getY() == YMAX - SIZE || form.c.getY() == YMAX - SIZE
-				|| form.d.getY() == YMAX - SIZE || moveA(form) || moveB(form) || moveC(form) || moveD(form)) {
+	private void MoveDown(Form form) {											// Downward movement
+		if (form.a.getY() == YMAX - SIZE || form.b.getY() == YMAX - SIZE 		// Delete row and recreate downwards by one
+		 || form.c.getY() == YMAX - SIZE || form.d.getY() == YMAX - SIZE 
+		 || moveA(form) || moveB(form) || moveC(form) || moveD(form)) {
 			MESH[(int) form.a.getX() / SIZE][(int) form.a.getY() / SIZE] = 1;
 			MESH[(int) form.b.getX() / SIZE][(int) form.b.getY() / SIZE] = 1;
 			MESH[(int) form.c.getX() / SIZE][(int) form.c.getY() / SIZE] = 1;
@@ -519,8 +532,8 @@ public class TetrisGame extends Tetris{
 			moveOnKeyPress(a);
 		}
 
-		if (form.a.getY() + MOVE < YMAX && form.b.getY() + MOVE < YMAX && form.c.getY() + MOVE < YMAX
-				&& form.d.getY() + MOVE < YMAX) {
+		if (form.a.getY() + MOVE < YMAX && form.b.getY() + MOVE < YMAX 
+			&& form.c.getY() + MOVE < YMAX && form.d.getY() + MOVE < YMAX) {
 			int movea = MESH[(int) form.a.getX() / SIZE][((int) form.a.getY() / SIZE) + 1];
 			int moveb = MESH[(int) form.b.getX() / SIZE][((int) form.b.getY() / SIZE) + 1];
 			int movec = MESH[(int) form.c.getX() / SIZE][((int) form.c.getY() / SIZE) + 1];
@@ -534,23 +547,23 @@ public class TetrisGame extends Tetris{
 		}
 	}
 
-	private boolean moveA(Form form) {
+	private boolean moveA(Form form) {											// Point A movemwent
 		return (MESH[(int) form.a.getX() / SIZE][((int) form.a.getY() / SIZE) + 1] == 1);
 	}
 
-	private boolean moveB(Form form) {
+	private boolean moveB(Form form) {											// Point B movemwent
 		return (MESH[(int) form.b.getX() / SIZE][((int) form.b.getY() / SIZE) + 1] == 1);
 	}
 
-	private boolean moveC(Form form) {
+	private boolean moveC(Form form) {											// Point C movemwent
 		return (MESH[(int) form.c.getX() / SIZE][((int) form.c.getY() / SIZE) + 1] == 1);
 	}
 
-	private boolean moveD(Form form) {
+	private boolean moveD(Form form) {											// Point D movemwent
 		return (MESH[(int) form.d.getX() / SIZE][((int) form.d.getY() / SIZE) + 1] == 1);
 	}
 
-	private boolean cB(Rectangle rect, int x, int y) {
+	private boolean cB(Rectangle rect, int x, int y) {							// Chects the rectangles
 		boolean xb = false;
 		boolean yb = false;
 		if (x >= 0)
