@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
+import javafx.css.Size;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -22,8 +23,8 @@ public class TetrisGame extends Tetris{
         // The variables
         public static final int MOVE = 25;										// Movement
         public static final int SIZE = 25;										// Size of obj
-        public static int XMAX = 490;											// Max horizontal
-        public static int YMAX = 800;											// Max vertical
+        public static int XMAX = SIZE * 12;											// Max horizontal
+        public static int YMAX = SIZE * 24;											// Max vertical
         public static int[][] MESH = new int[XMAX / SIZE][YMAX / SIZE];   		// Grid mesh
 
 		protected static Pane group = new Pane();						  		// Groups everything

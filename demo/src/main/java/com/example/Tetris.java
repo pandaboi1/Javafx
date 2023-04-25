@@ -21,7 +21,6 @@ import javafx.scene.layout.VBox;    //adds VBox
 import java.io.IOException;
 
 public class Tetris extends Application{
-    public static final int MOVE = 0;
     private static Label T;
     private static Label E;
     private static Label T2;
