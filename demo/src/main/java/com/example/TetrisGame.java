@@ -451,7 +451,7 @@ public class TetrisGame extends Tetris{
 			full = 0;
 		}
 
-		if (lines.size() > 0)													// De
+		if (lines.size() > 0)												
 			do {
 				for (Node node : pane.getChildren()) {
 					if (node instanceof Rectangle)
@@ -563,7 +563,7 @@ public class TetrisGame extends Tetris{
 		return (MESH[(int) form.d.getX() / SIZE][((int) form.d.getY() / SIZE) + 1] == 1);
 	}
 
-	private boolean cB(Rectangle rect, int x, int y) {							// Chects the rectangles
+	private boolean cB(Rectangle rect, int x, int y) {							// Checks the rectangles
 		boolean xb = false;
 		boolean yb = false;
 		if (x >= 0)
